@@ -35,11 +35,11 @@ def build_sent_text(email: dict) -> str:
     Тема: {subject}, дата {date}
     {clean_body}
     """
-    return (
-        f"Кому: {email['recipient']}, от {email['sender']}\n"
-        f"Тема: {email['subject']}, дата {email['date']}\n"
-        f"{email['clean_body']}"
-    )
+    return f"""\
+Кому: {email['recipient']}, от {email['sender']}
+Тема: {email['subject']}, дата {email['date']}
+{email['clean_body']}\
+"""
 
 
 def check_empty_fields(subject: str, body: str) -> Tuple[bool, bool]:
@@ -56,7 +56,7 @@ def mask_sender_email(login: str, domain: str) -> str:
     """
     Возвращает маску email: первые 2 символа логина + "***@" + домен.
     """
-    masked_login = login[:2] + "***" if len(login) > 2 else login + "***"
+    masked_login = login[:2] + "***@" + domain
     return f"{masked_login}@{domain}"
 
 
